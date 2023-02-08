@@ -1,20 +1,32 @@
 import React, { useState } from "react";
 import Dropdown from "rsuite/Dropdown";
 import "rsuite/dist/rsuite.min.css";
-import CodeIcon from "@rsuite/icons/Code";
 import PageIcon from "@rsuite/icons/Page";
 import DetailIcon from "@rsuite/icons/Detail";
 import FolderFillIcon from "@rsuite/icons/FolderFill";
 import FileDownloadIcon from "@rsuite/icons/FileDownload";
-import FileUploadIcon from "@rsuite/icons/FileUpload";
+
+const getIcon = (strSelected) => {
+  switch (strSelected) {
+    case "New File":
+      return <PageIcon />;
+    case "New File with Current Profile":
+      return <FolderFillIcon />;
+    case "Download As...":
+      return <FileDownloadIcon />;
+    case "Export PDF":
+      return <DetailIcon />;
+    default:
+      return <PageIcon />;
+  }
+};
 
 function App() {
   const [value, setValue] = useState("New File");
-  const [icon, setIcon] = useState(PageIcon);
 
   return (
     <div>
-      <Dropdown title={value} icon={<PageIcon />}>
+      <Dropdown title={value} icon={getIcon(value)}>
         <Dropdown.Item icon={<PageIcon />} onSelect={(eventKey, e) => setValue("New File", e)}>
           New File
         </Dropdown.Item>
